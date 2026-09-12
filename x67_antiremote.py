@@ -68,7 +68,7 @@ def sha256_file(path):
 def check_adb():
     code, out = adb("devices", "-l", timeout=20)
     print(out)
-    return code == 0 and any(re.search(r"\tdevice\b", x) for x in out.splitlines())
+    return code == 0 and any(re.search(r"\s+device\b", x) for x in out.splitlines())
 
 def device_info():
     keys = {
