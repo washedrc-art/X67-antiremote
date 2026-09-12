@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 APP_NAME = "X67 AntiRemote"
-VERSION = "1.1"
+VERSION = "1.2"
 
 TARGETS = {
     "1": {"name": "Free Fire TH", "packages": ["com.dts.freefireth"],
@@ -16,8 +16,15 @@ TARGETS = {
 }
 
 BASE_DIR = Path.home() / "x67_antiremote"
-REPORT_DIR = BASE_DIR / "reports"
+
+# Relatórios: salvar diretamente na pasta Downloads do usuário.
+# No Termux, "termux-setup-storage" normalmente cria ~/storage/downloads.
+# Em outros ambientes Android/Linux, usamos ~/Downloads como fallback.
+TERMUX_DOWNLOADS = Path.home() / "storage" / "downloads"
+DOWNLOADS_DIR = TERMUX_DOWNLOADS if TERMUX_DOWNLOADS.exists() else (Path.home() / "Downloads")
+REPORT_DIR = DOWNLOADS_DIR / "X67-AntiRemote" / "reports"
 BASELINE_DIR = BASE_DIR / "baselines"
+
 for d in (REPORT_DIR, BASELINE_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
@@ -282,35 +289,63 @@ def analyze(target):
     save_json(report/"report.json",result)
     summary=[APP_NAME,f"Alvo: {target['name']}",f"Pacote: {pkg}",f"STATUS: {status}","",
              "Motivos:"] + [f"- {x}" for x in reasons]
-    summary += ["",f"Relatório: {report}"]
+    summary += ["",f"Relatório (Downloads): {report}"]
     save_text(report/"SUMMARY.txt","\n".join(summary))
     print("\n=== RESULTADO ===")
     print(f"STATUS: {status}")
     for r in reasons: print(" -",r)
-    print(f"Relatório: {report}")
+    print(f"Relatório (Downloads): {report}")
+
+# Cores ANSI: roxo + branco para uma interface de terminal mais limpa.
+PURPLE = "\033[95m"
+PURPLE_DARK = "\033[35m"
+WHITE = "\033[97m"
+GRAY = "\033[90m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+
+def ui(text="", color=WHITE, bold=False):
+    prefix = BOLD if bold else ""
+    print(f"{prefix}{color}{text}{RESET}")
+
+
+def draw_header():
+    os.system("clear")
+    width = 64
+    ui("╔" + "═" * width + "╗", PURPLE, True)
+    ui("║" + " " * width + "║", PURPLE, True)
+    title = "X67 SCANNER"
+    subtitle = "ANTIREMOTE • INTEGRITY SCANNER"
+    ui("║" + title.center(width) + "║", WHITE, True)
+    ui("║" + subtitle.center(width) + "║", WHITE, False)
+    ui("║" + " " * width + "║", PURPLE, True)
+    ui("╠" + "═" * width + "╣", PURPLE, True)
+    ui("║" + "  1  •  FREE FIRE TH".ljust(width) + "║", WHITE)
+    ui("║" + "  2  •  FREE FIRE MAX".ljust(width) + "║", WHITE)
+    ui("║" + "  3  •  SAIR".ljust(width) + "║", WHITE)
+    ui("╚" + "═" * width + "╝", PURPLE, True)
+    ui(f"v{VERSION}  |  Relatórios: Downloads/X67-AntiRemote/reports", GRAY)
+
 
 def main():
-    os.system("clear")
-    print(f"{APP_NAME} v{VERSION}")
-    print("1 - Iniciar análise Free Fire TH")
-    print("2 - Iniciar análise Free Fire MAX")
-    print("3 - Sair")
+    draw_header()
     if not check_adb():
-        print("\n[ERRO] Nenhum dispositivo ADB autorizado.")
+        ui("\n[ERRO] Nenhum dispositivo ADB autorizado.", PURPLE, True)
         return
     while True:
-        c=input("\nEscolha: ").strip()
-        if c=="3": return
+        ui("\n┌──────────────────────────────────────────────────────────────┐", PURPLE)
+        c = input(f"{WHITE}│  Escolha uma opção: {RESET}").strip()
+        ui("└──────────────────────────────────────────────────────────────┘", PURPLE)
+        if c == "3":
+            ui("\nAté mais. 👋", PURPLE, True)
+            return
         if c in TARGETS:
             analyze(TARGETS[c])
-            input("\nENTER para voltar ao menu...")
-            os.system("clear")
-            print(f"{APP_NAME} v{VERSION}")
-            print("1 - Iniciar análise Free Fire TH")
-            print("2 - Iniciar análise Free Fire MAX")
-            print("3 - Sair")
+            input("\nPressione ENTER para voltar ao menu...")
+            draw_header()
         else:
-            print("[ERRO] Opção inválida.")
+            ui("[ERRO] Opção inválida.", PURPLE, True)
 
 if __name__=="__main__":
     main()

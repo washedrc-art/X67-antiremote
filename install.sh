@@ -7,6 +7,8 @@ pkg upgrade -y
 
 echo "[X67] Instalando Python, Git e ADB..."
 pkg install -y python git android-tools
+echo "[X67] Configurando acesso à pasta Downloads..."
+termux-setup-storage || true
 
 echo "[X67] Atualizando pip..."
 python -m pip install --upgrade pip
