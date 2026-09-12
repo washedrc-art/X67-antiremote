@@ -1,162 +1,45 @@
-<div id="top">
+# X67 AntiRemote — versão corrigida
 
-<p align="center">
+Scanner de integridade/forense para análise autorizada de Android usando Termux + ADB.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://i.imgur.com/QRlCrO3.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://i.imgur.com/QRlCrO3.png">
-  <img alt="ReadmeAI Logo" src="https://i.imgur.com/QRlCrO3.png" width="60%">
-</picture>
+## Instalação
 
-</p>
-
-<p align="center">
-  <em>Pensado e realizado em prol da comunidade de FreeFire, por X67.</em>
-</p>
-
-
-
-</div>
-
-<img src="https://i.imgur.com/NnWf7Fm.png" alt="line break" width="100%" height="3px">
-
-
-## Introdução
-
-X67 é um scanner para dispositivos Android que tem o objetivo de reunir logs e arquivos suspeitos em questão de segundos de utilização.
-
-**Por que usar o X67?**
-
-O projeto tem como principal função facilitar o trabalho dos analistas em suas telagens, que contem várias funções, como:
-
-* **🔵 Automação:** O scanner faz todo o trabalho pesado por você, poupando seu tempo.
-* **⚫️ Logs suspeitas:** Reune log's de todos possíves bypass para você automaticamente.
-* **🟣 Facilidade:** O scanner roda utilizando `Termux`, e com alguns simples comandos você já vai estar rodando ele sem problemas.
-
-
-## Como utilizar?
-
-
-
-#### <img width="2%" src="https://simpleicons.org/icons/diagramsdotnet.svg">&emsp13; Faça o download do Termux:
-
-
-| Aplicativo                  | Descrição                |
-|----------------------------|---------------------------|
-| [Termux](https://f-droid.org/repo/com.termux_1022.apk) | Terminal utilizado para rodar o scanner   |
-| [Tutorial](https://www.youtube.com/watch?v=RF7O1MHThsE&t=8s) | Tutorial ensinando a como utilizar   |
-
-
-#### <img width="2%" src="https://simpleicons.org/icons/termius.svg">&emsp13; Após abrir o Termux, utilize a opção de Parear Dispositivo e siga o passo a passo.
-
-```sh
-chmod +x X67 && ./X67
+```bash
+pkg update -y
+pkg install -y python android-tools
+termux-setup-storage
+cd X67-AntiRemote-fixed
+python x67_antiremote.py
 ```
 
+## ADB
 
-<img src="https://i.imgur.com/NnWf7Fm.png" alt="line break" width="100%" height="3px">
+Antes da análise, confirme:
 
+```bash
+adb devices
+```
 
-## Detecções
+O aparelho deve aparecer como `device`.
 
+## Relatórios
 
+Tudo é gravado diretamente no armazenamento compartilhado:
 
-| Detecções               | Descrição                                   |
-|----------------------|-----------------------------------------------|
-| `Verificação da instalação do FreeFire`            | Verificar se o jogo está instalado                      | `center`        |
-| `Reinicialização do dispositivo`              | Verifica se o dispositivo foi reiniciado a menos de 60 minutos                      |  
-| `Versão Android`      | Verifica a versão do Android                |
-| `Root`      | Verifica se o dispositivo possui Root                      |
-| `Data e Hora`     | Verifica bypass de Data e Hora                       |
-| `Passagem de Replay` | Verifica se o usuário passou Replay                      | 
-| `MTP`           | Verifica se o MTP está ativado  |
-| `Shaders`             | Verifica se o usuário deu bypass usando wallhack/holograma                            | 
-| `OBB`        | Verifica se o usuário deu algum tipo de bypass na OBB                               |
+`/sdcard/Download/X67_AntiRemote/`
 
+O relatório HTML principal também é criado em:
 
-<sub>
+`/sdcard/Download/x67_scanner_report.html`
 
-</sub>
+Não é usado `~/x67_antiremote`, nem uma pasta interna de `data/data` para os relatórios.
 
-<img src="https://i.imgur.com/NnWf7Fm.png" alt="line break" width="100%" height="3px">
+## Arquivos
 
-## Contribuições
+- `x67_antiremote.py` — scanner principal
+- `X67.php` — iniciador opcional e gerador de HTML
+- `install.sh` — instalação
+- `run.sh` — execução rápida
+- `requirements.txt` — sem dependências Python externas
 
-Contribuições são bem vindas! Por favor me chame no privado do discord `X67`.
-
-* **🐛 [Reporte um Problema](https://discord.gg/allianceoficial)**: Encontrou um bug? Me avise!
-* **💬 [Faça uma sugestão](https://discord.gg/allianceoficial)**: Tem ideias ou sugestões? Eu adoraria lhe ouvir.
-<br>
-
-
-## Agradecimentos
-
-Um grande agradecimento aos membros abaixo por seu trabalho incrível e contribuições sobre bypass:
-
-<div style="text-align:; font-weight: bold; margin-bottom: 10px;"> ㅤX67ㅤㅤSheikㅤ ㅤRibeiroㅤㅤㅤPxㅤㅤㅤㅤHgㅤㅤApelaㅤㅤDoutrinaㅤㅤBrisadoㅤㅤThx </div>
-<table>
-  <tr>
-    <td style="text-align: center; margin-right: 20px;">
-      <a href="https://www.instagram.com/X67ffx">
-        <img src="https://i.imgur.com/25Qrvbh.png" alt="X67" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center; margin-right: 20px;">
-      <a href="https://discord.gg/allianceoficial">
-        <img src="https://i.imgur.com/DkHpc3a.jpeg" alt="sheik" style="width: 50px; height: 50px; object-fit: cover;">
-      </a>
-    </td>
-    <td style="text-align: center; margin-right: 20px;">
-      <a href="https://www.instagram.com/Ribeirowxz">
-        <img src="https://i.imgur.com/xqmiMSG.png" alt="ribeiro" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center;">
-      <a href="https://discord.gg/allianceoficial">
-        <img src="https://i.imgur.com/8BUhE5T.jpeg" alt="PX" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center; margin-right: 20px;">
-      <a href="https://www.instagram.com/_hugomoises">
-        <img src="https://i.imgur.com/8QVfHn2.png" alt="hg" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center;">
-      <a href="https://discord.gg/allianceoficial">
-        <img src="https://i.imgur.com/Fyk08YR.jpeg" alt="apela" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center; margin-left: 20px;">
-      <a href="https://discord.gg/allianceoficial">
-        <img src="https://i.imgur.com/97jqgpN.png" alt="brisado" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center; margin-left: 20px;">
-      <a href="https://discord.gg/allianceoficial">
-        <img src="https://i.imgur.com/9mzmb9u.png" alt="doutrinaking" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-    <td style="text-align: center; margin-left: 20px;">
-      <a href="https://discord.gg/allianceoficial">
-        <img src="https://i.imgur.com/HIlxnmH.png" alt="thx" style="width: 50px; height: 50px;">
-      </a>
-    </td>
-  </tr>
-</table>
-
-## 🎗 Licença
-
-Copyright X67 © 2025-2030.<br />
-
-<div align="left">
-</div>
-
-<img src="https://i.imgur.com/NnWf7Fm.png" alt="line break" width="100%" height="3px">
-
-
-## Relatório HTML
-Após a análise, o relatório é gerado diretamente em:
-
-`/sdcard/download/x67_scanner_report.html`
-
-Sem subpastas de data, `data/data` ou diretórios do Termux.
+Use somente em aparelhos e dados que você está autorizado a analisar.
