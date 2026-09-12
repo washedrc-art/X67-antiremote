@@ -1,0 +1,2 @@
+# X67 AntiRemote usa apenas a biblioteca padrão do Python.
+# Nenhuma dependência pip externa é necessária.

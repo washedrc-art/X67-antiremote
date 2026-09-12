@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+x67_antiremote/reports/
+x67_antiremote/baselines/
+reports/
+baselines/
+*.apk
