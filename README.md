@@ -86,10 +86,10 @@ O resultado é deliberadamente conservador para reduzir falsos positivos.
 Os relatórios são salvos automaticamente em:
 
 ```text
-~/storage/downloads/X67-AntiRemote/reports/
+/sdcard/download/X67-AntiRemote/reports/
 ```
 
-No Android/Termux, isso corresponde à pasta **Downloads** do aparelho. Se `~/storage/downloads` não estiver disponível, o scanner usa `~/Downloads` como fallback.
+No Android/Termux, isso corresponde à pasta **/sdcard/download** do aparelho. Se `/sdcard/download` não estiver disponível, o scanner usa `/sdcard/download` como fallback.
 
 Baselines:
 

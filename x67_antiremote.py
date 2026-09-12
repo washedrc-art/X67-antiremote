@@ -18,8 +18,8 @@ TARGETS = {
 BASE_DIR = Path.home() / "x67_antiremote"
 
 # Relatórios: salvar diretamente na pasta Downloads do usuário.
-# No Termux, "termux-setup-storage" normalmente cria ~/storage/downloads.
-# Em outros ambientes Android/Linux, usamos ~/Downloads como fallback.
+# No Termux, "termux-setup-storage" normalmente cria /sdcard/download.
+# Em outros ambientes Android/Linux, usamos /sdcard/download como fallback.
 TERMUX_DOWNLOADS = Path.home() / "storage" / "downloads"
 DOWNLOADS_DIR = TERMUX_DOWNLOADS if TERMUX_DOWNLOADS.exists() else (Path.home() / "Downloads")
 REPORT_DIR = DOWNLOADS_DIR / "X67-AntiRemote" / "reports"
